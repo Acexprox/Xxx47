@@ -1,0 +1,217 @@
+/* Video Demo Button Animations */
+
+/* Play Icon Wrapper */
+.play-icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.4));
+}
+
+/* Ripple Wave Animation - Multiple yellow waves */
+@keyframes ripple-wave {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(1.4);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+/* Yellow ripple waves - 3 waves with different delays */
+.play-pulse {
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  border: 5px solid #fbbf24;
+  animation: ripple-wave 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+  box-shadow: 0 0 15px rgba(251, 191, 36, 0.6);
+}
+
+/* Create multiple ripple waves using pseudo elements */
+.play-pulse::before,
+.play-pulse::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 5px solid #fbbf24;
+  pointer-events: none;
+}
+
+.play-pulse::before {
+  animation: ripple-wave 2s cubic-bezier(0.4, 0, 0.2, 1) 0.4s infinite;
+}
+
+.play-pulse::after {
+  animation: ripple-wave 2s cubic-bezier(0.4, 0, 0.2, 1) 0.8s infinite;
+}
+
+/* Gentle bounce animation for the Play icon with color */
+@keyframes gentle-bounce {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+}
+
+@keyframes icon-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.6));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.8));
+  }
+}
+
+.play-icon {
+  animation: gentle-bounce 2s ease-in-out infinite, icon-glow 2s ease-in-out infinite;
+  transition: all 0.3s ease;
+  color: #3b82f6;
+  stroke-width: 2.5;
+}
+
+/* Enhanced hover effects for the button */
+.video-demo-button:hover .play-icon {
+  animation: none;
+  transform: scale(1.3) translateX(2px);
+  color: #8b5cf6;
+  filter: drop-shadow(0 0 12px rgba(139, 92, 246, 1));
+}
+
+.video-demo-button:hover .play-pulse {
+  animation: pulse-ring 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  border-width: 4px;
+  opacity: 1;
+}
+
+/* Colorful gradient glow on hover */
+.video-demo-button:hover {
+  box-shadow: 
+    0 0 20px rgba(59, 130, 246, 0.4),
+    0 0 40px rgba(139, 92, 246, 0.3),
+    0 10px 30px -5px rgba(236, 72, 153, 0.3);
+  border-color: #3b82f6 !important;
+}
+
+/* Active state - when clicking */
+.video-demo-button:active {
+  transform: scale(0.98);
+}
+
+/* Colorful shine effect - continuous animation */
+@keyframes shine-sweep {
+  0% {
+    left: -150%;
+  }
+  50%, 100% {
+    left: 150%;
+  }
+}
+
+.video-demo-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(139, 92, 246, 0.4),
+    rgba(59, 130, 246, 0.4),
+    transparent
+  );
+  transform: skewX(-20deg);
+  animation: shine-sweep 4s ease-in-out infinite;
+  pointer-events: none;
+  border-radius: 0.75rem;
+  z-index: 1;
+}
+
+.video-demo-button:hover::before {
+  animation: shine-sweep 2s ease-in-out infinite;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(236, 72, 153, 0.5),
+    rgba(139, 92, 246, 0.5),
+    transparent
+  );
+}
+
+/* Ensure button stays relative for absolute positioning */
+.video-demo-button {
+  overflow: hidden;
+}
+
+/* Animated gradient border for the button */
+@keyframes gradient-border {
+  0%, 100% {
+    border-color: rgba(59, 130, 246, 0.4);
+  }
+  33% {
+    border-color: rgba(139, 92, 246, 0.4);
+  }
+  66% {
+    border-color: rgba(236, 72, 153, 0.4);
+  }
+}
+
+/* Add animated gradient border only (no glow) */
+.video-demo-button {
+  animation: gradient-border 3s ease-in-out infinite;
+  border-width: 2.5px;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Add gradient overlay background on the button */
+.video-demo-button::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 0.75rem;
+  padding: 2px;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: -1;
+  animation: gradient-rotate 3s linear infinite;
+}
+
+@keyframes gradient-rotate {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+/* Accessibility: Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .play-pulse,
+  .play-icon,
+  .video-demo-button::before {
+    animation: none !important;
+  }
+  
+  .video-demo-button:hover .play-icon {
+    transform: scale(1.1);
+  }
+}
